@@ -29,7 +29,7 @@ namespace Presentacion.Controllers
             }
             else
             {
-                return View(puntoVenta.Estadistica);                                                                                                                                                        
+                return View(puntoVenta);                                                                                                                                                        
             }
         }
 

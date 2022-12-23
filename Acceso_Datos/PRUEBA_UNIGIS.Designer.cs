@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\digis\Desktop\Unigis\Presentacion\Acceso_Datos\PRUEBA_UNIGIS.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\digis\Downloads\Grafica-y-Mapa-master\Grafica-y-Mapa-master\Acceso_Datos\PRUEBA_UNIGIS.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

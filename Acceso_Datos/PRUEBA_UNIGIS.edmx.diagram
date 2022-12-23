@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="dbfcb515557d4b8293dd229e7be9ae07" Name="Diagram1">
-        <EntityTypeShape EntityType="PRUEBA_UNIGISModel.PuntoVenta" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="PRUEBA_UNIGISModel.Zona" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="PRUEBA_UNIGISModel.FK__PuntoVent__IdZon__31EC6D26" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PRUEBA_UNIGISModel.PuntoVenta" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="PRUEBA_UNIGISModel.FK__PuntoVent__IdZon__38996AB5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
