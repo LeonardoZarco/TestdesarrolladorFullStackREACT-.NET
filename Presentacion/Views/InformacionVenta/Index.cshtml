@@ -66,11 +66,23 @@
             });
               @foreach(Modelo.PuntoVenta puntoventa in Model.PuntoVentas)
                             {
-                                 <text>var marker = new google.maps.Marker({ position: { lat:@puntoventa.Latitud, lng: @puntoventa.Longitud }, map: map });</text>
-                            }
+    <text>
+            var marker = new google.maps.Marker({ position: { lat:@puntoventa.Latitud, lng: @puntoventa.Longitud }, map: map, id: @puntoventa.ID });
 
+            var contentString = 'PUNTO DE VENTA:  ' + ' @puntoventa.Descripcion ' +'  $@puntoventa.Venta  ';
+        var infoWindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+            marker.addListener("click", function () {
+                var id = this.id;
+            infoWindow.open(map, marker);
+        });
+
+    </text>
+}
         }
         window.initMap = initMap;
+
 
     </script>
 
