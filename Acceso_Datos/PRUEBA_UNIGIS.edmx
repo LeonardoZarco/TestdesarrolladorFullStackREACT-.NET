@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PRUEBA_UNIGISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PuntoVenta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Latitud" Type="decimal" Precision="20" Scale="16" />
+          <Property Name="Longitud" Type="decimal" Precision="20" Scale="16" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="150" />
+          <Property Name="Venta" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="IdZona" Type="int" />
+        </EntityType>
+        <EntityType Name="Zona">
+          <Key>
+            <PropertyRef Name="IdZona" />
+          </Key>
+          <Property Name="IdZona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomZona" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__PuntoVent__IdZon__31EC6D26">
+          <End Role="Zona" Type="Self.Zona" Multiplicity="0..1" />
+          <End Role="PuntoVenta" Type="Self.PuntoVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zona">
+              <PropertyRef Name="IdZona" />
+            </Principal>
+            <Dependent Role="PuntoVenta">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddPunto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Latitud" Type="decimal" Mode="In" />
+          <Parameter Name="Longitud" Type="decimal" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Venta" Type="decimal" Mode="In" />
+          <Parameter Name="IdZona" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeletePunto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllPunto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllTotalVentas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllZona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetByPunto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdatePunto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="Latitud" Type="decimal" Mode="In" />
+          <Parameter Name="Longitud" Type="decimal" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Venta" Type="decimal" Mode="In" />
+          <Parameter Name="IdZona" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="PRUEBA_UNIGISModelStoreContainer">
+          <EntitySet Name="PuntoVenta" EntityType="Self.PuntoVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zona" EntityType="Self.Zona" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__PuntoVent__IdZon__31EC6D26" Association="Self.FK__PuntoVent__IdZon__31EC6D26">
+            <End Role="Zona" EntitySet="Zona" />
+            <End Role="PuntoVenta" EntitySet="PuntoVenta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PRUEBA_UNIGISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PuntoVenta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Latitud" Type="Decimal" Precision="20" Scale="16" />
+          <Property Name="Longitud" Type="Decimal" Precision="20" Scale="16" />
+          <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Venta" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="IdZona" Type="Int32" />
+          <NavigationProperty Name="Zona" Relationship="Self.FK__PuntoVent__IdZon__31EC6D26" FromRole="PuntoVenta" ToRole="Zona" />
+        </EntityType>
+        <EntityType Name="Zona">
+          <Key>
+            <PropertyRef Name="IdZona" />
+          </Key>
+          <Property Name="IdZona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomZona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PuntoVentas" Relationship="Self.FK__PuntoVent__IdZon__31EC6D26" FromRole="Zona" ToRole="PuntoVenta" />
+        </EntityType>
+        <Association Name="FK__PuntoVent__IdZon__31EC6D26">
+          <End Role="Zona" Type="Self.Zona" Multiplicity="0..1" />
+          <End Role="PuntoVenta" Type="Self.PuntoVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zona">
+              <PropertyRef Name="IdZona" />
+            </Principal>
+            <Dependent Role="PuntoVenta">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PRUEBA_UNIGISEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PuntoVentas" EntityType="Self.PuntoVenta" />
+          <EntitySet Name="Zonas" EntityType="Self.Zona" />
+          <AssociationSet Name="FK__PuntoVent__IdZon__31EC6D26" Association="Self.FK__PuntoVent__IdZon__31EC6D26">
+            <End Role="Zona" EntitySet="Zonas" />
+            <End Role="PuntoVenta" EntitySet="PuntoVentas" />
+          </AssociationSet>
+          <FunctionImport Name="AddPunto">
+            <Parameter Name="Latitud" Mode="In" Type="Decimal" />
+            <Parameter Name="Longitud" Mode="In" Type="Decimal" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Venta" Mode="In" Type="Decimal" />
+            <Parameter Name="IdZona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeletePunto">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllPunto" ReturnType="Collection(PRUEBA_UNIGISModel.GetAllPunto_Result)" />
+          <FunctionImport Name="GetAllZona" ReturnType="Collection(PRUEBA_UNIGISModel.GetAllZona_Result)" />
+          <FunctionImport Name="GetByPunto" ReturnType="Collection(PRUEBA_UNIGISModel.GetByPunto_Result)">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdatePunto">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="Latitud" Mode="In" Type="Decimal" />
+            <Parameter Name="Longitud" Mode="In" Type="Decimal" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Venta" Mode="In" Type="Decimal" />
+            <Parameter Name="IdZona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllTotalVentas" ReturnType="Collection(PRUEBA_UNIGISModel.GetAllTotalVentas_Result)" />
+        </EntityContainer>
+        <ComplexType Name="GetAllPunto_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Decimal" Name="Latitud" Nullable="true" Precision="20" Scale="16" />
+          <Property Type="Decimal" Name="Longitud" Nullable="true" Precision="20" Scale="16" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="150" />
+          <Property Type="Decimal" Name="Venta" Nullable="true" Precision="5" Scale="2" />
+          <Property Type="Int32" Name="IdZona" Nullable="true" />
+          <Property Type="String" Name="NomZona" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAllZona_Result">
+          <Property Type="Int32" Name="IdZona" Nullable="false" />
+          <Property Type="String" Name="NomZona" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetByPunto_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Decimal" Name="Latitud" Nullable="true" Precision="20" Scale="16" />
+          <Property Type="Decimal" Name="Longitud" Nullable="true" Precision="20" Scale="16" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="150" />
+          <Property Type="Decimal" Name="Venta" Nullable="true" Precision="5" Scale="2" />
+          <Property Type="Int32" Name="IdZona" Nullable="true" />
+          <Property Type="String" Name="NomZona" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAllTotalVentas_Result">
+          <Property Type="Int32" Name="IdZona" Nullable="false" />
+          <Property Type="String" Name="NomZona" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="VENTA_POR_ZONA" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PRUEBA_UNIGISModelStoreContainer" CdmEntityContainer="PRUEBA_UNIGISEntities">
+          <EntitySetMapping Name="PuntoVentas">
+            <EntityTypeMapping TypeName="PRUEBA_UNIGISModel.PuntoVenta">
+              <MappingFragment StoreEntitySet="PuntoVenta">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Venta" ColumnName="Venta" />
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zonas">
+            <EntityTypeMapping TypeName="PRUEBA_UNIGISModel.Zona">
+              <MappingFragment StoreEntitySet="Zona">
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+                <ScalarProperty Name="NomZona" ColumnName="NomZona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddPunto" FunctionName="PRUEBA_UNIGISModel.Store.AddPunto" />
+          <FunctionImportMapping FunctionImportName="DeletePunto" FunctionName="PRUEBA_UNIGISModel.Store.DeletePunto" />
+          <FunctionImportMapping FunctionImportName="GetAllPunto" FunctionName="PRUEBA_UNIGISModel.Store.GetAllPunto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PRUEBA_UNIGISModel.GetAllPunto_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Venta" ColumnName="Venta" />
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+                <ScalarProperty Name="NomZona" ColumnName="NomZona" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllZona" FunctionName="PRUEBA_UNIGISModel.Store.GetAllZona">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PRUEBA_UNIGISModel.GetAllZona_Result">
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+                <ScalarProperty Name="NomZona" ColumnName="NomZona" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetByPunto" FunctionName="PRUEBA_UNIGISModel.Store.GetByPunto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PRUEBA_UNIGISModel.GetByPunto_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Venta" ColumnName="Venta" />
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+                <ScalarProperty Name="NomZona" ColumnName="NomZona" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdatePunto" FunctionName="PRUEBA_UNIGISModel.Store.UpdatePunto" />
+          <FunctionImportMapping FunctionImportName="GetAllTotalVentas" FunctionName="PRUEBA_UNIGISModel.Store.GetAllTotalVentas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PRUEBA_UNIGISModel.GetAllTotalVentas_Result">
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+                <ScalarProperty Name="NomZona" ColumnName="NomZona" />
+                <ScalarProperty Name="VENTA_POR_ZONA" ColumnName="VENTA POR ZONA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,62 @@
+﻿@model Modelo.PuntoVenta
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetAll</h2>
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Listado de puntos de ventas</h5>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div style="float:right">
+        @Html.ActionLink("+", "Form", "PuntoVenta", htmlAttributes: new { @class = "btn btn-success" })
+    </div>
+
+
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <td>Editar</td>
+                <td>Latitud</td>
+                <td>Longitud</td>
+                <td>Descripcion</td>
+                <td>Venta</td>
+                <td>Zona</td>
+                <td>Eliminar</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Modelo.PuntoVenta puntoVenta in Model.PuntoVentas)
+            {
+                <tr>
+                    <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "PuntoVenta", new { ID = puntoVenta.ID })"></a></td>
+
+
+                    <td class="hidden">@puntoVenta|.ID</td>
+                    <td>@puntoVenta.Latitud</td>
+                    <td>@puntoVenta.Longitud</td>
+                    <td>@puntoVenta.Descripcion</td>
+                    <td>@puntoVenta.Venta</td>
+                    <td>@puntoVenta.Zona.NomZona</td>
+
+
+                    <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "PuntoVenta", new { ID = puntoVenta.ID})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,189 @@
+﻿@model Modelo.PuntoVenta
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Formulario</h2>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Form", "PuntoVenta", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                @Html.ValidationSummary(true, "Please fix te following errors.")
+
+                <div class="hidden">
+                    <div class="col-md-4 col-12 col-sm-6">
+                        @Html.LabelFor(model => model.ID)
+                        @Html.TextBoxFor(model => model.ID, new { @class = "form-control", })
+                        @Html.ValidationMessageFor(model => model.ID)
+
+                    </div>
+                </div>
+
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.Latitud)
+                        @Html.TextBoxFor(model => model.Latitud, new { @class = "form-control", @id = "txtLatitud", @readonly = true })
+                        @Html.ValidationMessageFor(model => model.Latitud)
+
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.Longitud)
+                        @Html.TextBoxFor(model => model.Longitud, new { @class = "form-control", @id = "txtLongitud", @readonly = true })
+                        @Html.ValidationMessageFor(model => model.Longitud)
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Descripcion)
+                        @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Descripcion)
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.Venta)
+                        @Html.TextBoxFor(model => model.Venta, new { @class = "form-control", @id = "txtVenta", @placeholder = "Venta", @onkeypress = "return SoloNumeros(event,'txtVenta')" })
+                        @Html.ValidationMessageFor(model => model.Venta)
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.Zona.Zonas, new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Zona.IdZona, new SelectList(Model.Zona.Zonas, "IdZona", "NomZona"), "Selecciona una opción", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Zona.Zonas, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <h3><b>SELECCIONA EN EL MAPA LA UBICACIÓN QUE DESEA DAR DE ALTA</b></h3>
+
+                <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+
+                <div id="map"></div>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSKBDdPPlfca_zTwyxKiicRQn1qfgRjLw&callback=initMap&libraries=&v=weekly&sensor=false" defer></script>
+
+
+                <div class="form-group">
+
+                    <div class="col-md-3">
+                        <input type="submit" value="Guardar" class="btn btn-success" />
+                        @Html.ActionLink("Regresar", "GetAll", "PuntoVenta", htmlAttributes: new { @class = "btn btn-danger" })
+
+                    </div>
+
+                </div>
+
+
+
+
+
+            }
+
+        </div>
+    </div>
+
+    <style>
+        #map {
+            height: 350px;
+            width: 50%;
+        }
+    </style>
+
+    @section Scripts
+{
+        <script type="text/javascript">
+
+
+            function initMap() {
+
+                if ($("#txtLatitud").val() == 0 && $("#txtLongitud").val() == 0) {
+
+                    myLatlng = { lat: 19.5530408, lng: -99.2748958 };
+                } else {
+
+                    myLatlng = { lat: parseFloat($("#txtLatitud").val()), lng: parseFloat($("#txtLongitud").val()) };
+                }
+
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 14,
+                    center: myLatlng,
+                });
+                // Create the initial InfoWindow.
+                let infoWindow = new google.maps.InfoWindow({
+                    content: "Presiona la locación",
+                    position: myLatlng,
+                });
+
+                infoWindow.open(map);
+                // Configure the click listener.
+
+
+
+                map.addListener("click", (mapsMouseEvent) => {
+                    // Close the current InfoWindow.
+                    infoWindow.close();
+                    // Create a new InfoWindow.
+                    infoWindow = new google.maps.InfoWindow({
+                        position: mapsMouseEvent.latLng,
+                    });
+                    infoWindow.setContent(
+                        JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+                    );
+
+                    infoWindow.open(map);
+                    var Latitud = mapsMouseEvent.latLng.lat();
+                    var Longitud = mapsMouseEvent.latLng.lng();
+                    $("#txtLatitud").val(Latitud);
+                    $("#txtLongitud").val(Longitud);
+                });
+            }
+
+            window.initMap = initMap;
+
+
+
+
+            function SoloNumeros(e, controlId) {
+                var caracter = e.key;
+                if (!/^[0-9.]/g.test(caracter)) {
+                    $('#' + controlId).text("Solo se aceptan numeros");
+                    $('#' + controlId).css({ "color": "Black" });
+                    return false;
+                }
+                else {
+                    $('#' + controlId).text("");
+                    return true;
+                }
+            }
+
+
+
+
+        </script>
+    }
